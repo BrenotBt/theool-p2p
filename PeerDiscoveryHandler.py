@@ -29,12 +29,12 @@ class PeerDiscoveryHandler():
             while True:
                 print('PEERREGISTER')
                 self.socketCommunication.seed_ip = self.socketCommunication.seedDiscovery.seed_ip()
-                self.socketCommunication.connect_with_node(self.socketCommunication.seed_ip, self.socketCommunication.port)
+                connected_node = self.socketCommunication.connect_with_node(self.socketCommunication.seed_ip, self.socketCommunication.port)
                 messageType = 'PEERREGISTER'
                 senderConnector = {"ip": self.socketCommunication.ip, "port": self.socketCommunication.port}
                 data = self.socketCommunication.peers
                 message = Message(messageType, senderConnector, data)
-                self.socketCommunication.send(self.socketCommunication.seed_ip, message)
+                self.socketCommunication.send(connected_node, message)
                 time.sleep(60)
 
     """
