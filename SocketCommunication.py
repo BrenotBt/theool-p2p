@@ -54,7 +54,7 @@ class SocketCommunication(Node):
         """
 
     def send(self, receiver, message):
-        print(receiver, message.toJson())
+        #print(receiver, message.toJson())
         self.send_to_node(receiver, message)
 
     def broadcast(self, message):
