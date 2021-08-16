@@ -38,15 +38,17 @@ class SocketCommunication(Node):
         self.peerDiscoveryHandler.start()
         self.connectToSeed()
 
+    """
     def inbound_node_connected(self, connected_node):
         self.peerDiscoveryHandler.handshake(connected_node)
 
     def outbound_node_connected(self, connected_node):
         self.peerDiscoveryHandler.handshake(connected_node)
+    """
 
     def node_message(self, connected_node, message):
         message = BlockchainUtils.decode(json.dumps(message))
-        if handshake_message.payload['messageType'] == 'PEERREGISTER':
+        if message.payload['messageType'] == 'PEERREGISTER':
             self.peerDiscovery.handle_message(message)
         """
         elif message.messageType == 'DISCOVERY':
