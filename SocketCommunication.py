@@ -13,6 +13,7 @@ class SocketCommunication(Node):
     def __init__(self, ip, port):
         self.ip = ip
         self.seed_ip = ''
+        self.seed_connected_node = {}
         self.port = port
         super(SocketCommunication, self).__init__(ip, port, None)
         self.peers = []
