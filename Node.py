@@ -7,10 +7,9 @@ class Node():
 
     def __init__(self, key=None):
         self.p2p = None
-        self.ip = socket.gethostbyname(socket.gethostname())
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(('8.8.8.8', 80))
-        print(s.getsockname()[0])
+        self.ip = s.getsockname()[0]
         self.port = 8866
 
     def startP2P(self):
