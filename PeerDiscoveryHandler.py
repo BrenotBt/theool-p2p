@@ -26,7 +26,10 @@ class PeerDiscoveryHandler():
     def connect_to_seed(self):
         while True:
             print('PEERREGISTER')
-            self.handshake(self.socketCommunication.seed_connected_node)
+            if not self.socketCommunication.seed_connected_node:
+                self.socketCommunication.connect_with_node(self.socketCommunication.seedDiscovery.seed_ip(), self.socketCommunication.port)
+            else:
+                self.handshake(self.socketCommunication.seed_connected_node)
             time.sleep(60)
 
     def handshake(self, connected_node):
