@@ -14,7 +14,7 @@ class SeedDiscovery:
 
     def load_seeds(self):
         seeds_path = self.directory+'/seeds.json'
-        with open(seeds_path) as f:
+        with open(seeds_path, "wb+") as f:
             self.seed = json.load(f)
 
     def is_seed(self, ip):

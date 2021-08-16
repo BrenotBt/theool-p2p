@@ -3,7 +3,7 @@ import os.path
 import random
 
 
-seeds_path = os.path.abspath(os.curdir)+'\\peers.json'
+seeds_path = os.path.abspath(os.curdir)+'/peers.json'
 
 class PeerDiscovery:
 
@@ -14,7 +14,7 @@ class PeerDiscovery:
 
     def load_peers(self):
         if os.path.isfile(seeds_path):
-            with open(seeds_path) as f:
+            with open(seeds_path, "wb+") as f:
                 self.peers = json.load(f)
 
     def peer_ip(self):
@@ -22,7 +22,7 @@ class PeerDiscovery:
 
     def add_peer(self, data):
         self.peers.append(data)
-        with open(seeds_path) as f:
+        with open(seeds_path, "wb+") as f:
             json.dump(self.peers, f)
 
     def peer_register(self, message):
