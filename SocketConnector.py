@@ -8,3 +8,6 @@ class SocketConnector():
             return True
         else:
             return False
+
+    def toJson(self):
+        return self.__dict__

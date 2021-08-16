@@ -57,11 +57,13 @@ class PeerDiscoveryHandler():
         return encodedMessage
 
     def handshakeMessage(self):
-        ownConnector = self.socketCommunication.socketConnector
+        ownConnector = self.socketCommunication.socketConnector.toJson()
+        print(ownConnector)
         ownPeers = self.socketCommunication.peers
         data = ownPeers
         messageType = 'DISCOVERY'
         message = Message(messageType, ownConnector, data)
+        print(message.toJson())
         encodedMessage = BlockchainUtils.encode(message)
         return encodedMessage
     """
