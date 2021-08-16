@@ -26,13 +26,11 @@ class SocketCommunication(Node):
         self.start()
         self.peerDiscoveryHandler.start()
 
-    """
     def inbound_node_connected(self, connected_node):
         self.peerDiscoveryHandler.handshake(connected_node)
 
     def outbound_node_connected(self, connected_node):
         self.peerDiscoveryHandler.handshake(connected_node)
-    """
 
     def node_message(self, connected_node, message):
         message = BlockchainUtils.decode(json.dumps(message))
