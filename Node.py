@@ -1,5 +1,6 @@
 import socket
 from SocketCommunication import SocketCommunication
+from BlockchainUtils import BlockchainUtils
 
 
 class Node():

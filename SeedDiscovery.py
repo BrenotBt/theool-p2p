@@ -1,3 +1,4 @@
+from BlockchainUtils import BlockchainUtils
 import json
 import os.path
 import random
@@ -5,7 +6,8 @@ import random
 
 class SeedDiscovery:
 
-    def __init__(self):
+    def __init__(self, node):
+        self.socketCommunication = node
         self.directory = os.path.abspath(os.curdir)
         self.seed = []
         self.load_seeds()
@@ -22,3 +24,9 @@ class SeedDiscovery:
 
     def seed_ip(self):
         return random.choice(self.seed)
+
+    def handshake_message(self, handshake_message):
+        self.socketCommunication.send(self.seed_ip, handshake_message)
+
+    def handle_message(self, message):
+        print(message.to_json())
