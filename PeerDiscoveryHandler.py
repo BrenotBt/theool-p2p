@@ -15,8 +15,6 @@ class PeerDiscoveryHandler():
         if not (self.socketCommunication.seedDiscovery.is_seed(self.socketCommunication.ip)):
             seedThread = threading.Thread(target=self.connect_to_seed, args=())
             seedThread.start()
-        #discoveryThread = threading.Thread(target=self.discovery, args=())
-        #discoveryThread.start()
 
     def status(self):
         while True:
@@ -36,18 +34,10 @@ class PeerDiscoveryHandler():
 
     def handshake(self, connected_node):
         if not (self.socketCommunication.seedDiscovery.is_seed(self.socketCommunication.ip)):
-            print('register')
             handshake_message = self.connect_to_seed_message()
-        else:
-            print('discovery')
-            handshake_message = self.handshakeMessage()
-        self.socketCommunication.send(connected_node, handshake_message)
-
-    def discovery(self):
-        while True:
-            handshakeMessage = self.handshakeMessage()
-            self.socketCommunication.broadcast(handshakeMessage)
-            time.sleep(10)
+            self.socketCommunication.seed_connected_node = connected_node
+            print('connected_node =', connected_node)
+            self.socketCommunication.send(connected_node, handshake_message)
 
     def connect_to_seed_message(self):
         messageType = 'PEERREGISTER'
@@ -57,6 +47,7 @@ class PeerDiscoveryHandler():
         encodedMessage = BlockchainUtils.encode(message)
         return encodedMessage
 
+    """
     def handshakeMessage(self):
         ownConnector = self.socketCommunication.socketConnector.toJson()
         ownPeers = self.socketCommunication.peers
@@ -65,7 +56,6 @@ class PeerDiscoveryHandler():
         message = Message(messageType, ownConnector, data)
         encodedMessage = BlockchainUtils.encode(message)
         return encodedMessage
-    """
     
     def handleMessage(self, message):
         peersSocketConnector = message.senderConnector

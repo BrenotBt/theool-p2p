@@ -25,5 +25,8 @@ class PeerDiscovery:
         with open(seeds_path) as f:
             json.dump(self.peers, f)
 
-    def handleMessage(self, message):
-        print(message)
+    def peer_register(self, message):
+        payload = message.payload
+        ip = payload['senderConnector']['ip']
+        if ip not in self.peers:
+            self.add_peer(ip)

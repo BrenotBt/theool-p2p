@@ -27,6 +27,3 @@ class SeedDiscovery:
 
     def handshake_message(self, handshake_message):
         self.socketCommunication.send(self.seed_ip, handshake_message)
-
-    def handle_message(self, message):
-        print(message.to_json())
