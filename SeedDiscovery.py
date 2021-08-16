@@ -13,7 +13,7 @@ class SeedDiscovery:
         self.load_seeds()
 
     def load_seeds(self):
-        seeds_path = self.directory+'\\seeds.json'
+        seeds_path = self.directory+'/seeds.json'
         with open(seeds_path) as f:
             self.seed = json.load(f)
 
