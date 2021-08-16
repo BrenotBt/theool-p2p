@@ -34,7 +34,7 @@ class SocketCommunication(Node):
 
     def node_message(self, connected_node, message):
         message = BlockchainUtils.decode(json.dumps(message))
-        print(message)
+        print('node_message = ', message)
         if message.payload['messageType'] == 'PEERREGISTER':
             self.peerDiscovery.handle_message(message)
         """
