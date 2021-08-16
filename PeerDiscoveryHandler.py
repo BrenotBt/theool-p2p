@@ -12,6 +12,8 @@ class PeerDiscoveryHandler():
     def start(self):
         statusThread = threading.Thread(target=self.status, args=())
         statusThread.start()
+        seedThread = threading.Thread(target=self.connect_to_seed, args=())
+        seedThread.start()
         #discoveryThread = threading.Thread(target=self.discovery, args=())
         #discoveryThread.start()
 
@@ -22,6 +24,18 @@ class PeerDiscoveryHandler():
                 print(str(peer.ip) + ':' + str(peer.port))
             time.sleep(5)
 
+    def connect_to_seed(self):
+        if not (self.socketCommunication.seedDiscovery.is_seed(self.socketCommunication.ip)):
+            while True:
+                print('PEERREGISTER')
+                self.socketCommunication.seed_ip = self.socketCommunication.seedDiscovery.seed_ip()
+                self.socketCommunication.connect_with_node(self.socketCommunication.seed_ip, self.socketCommunication.port)
+                messageType = 'PEERREGISTER'
+                senderConnector = {"ip": self.socketCommunication.ip, "port": self.socketCommunication.port}
+                data = self.socketCommunication.peers
+                message = Message(messageType, senderConnector, data)
+                self.socketCommunication.send(self.socketCommunication.seed_ip, message)
+                time.sleep(60)
 
     """
     def discovery(self):

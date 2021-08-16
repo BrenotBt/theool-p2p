@@ -21,22 +21,10 @@ class SocketCommunication(Node):
         self.peerDiscoveryHandler = PeerDiscoveryHandler(self)
         self.socketConnector = SocketConnector(ip, port)
 
-
-    def connectToSeed(self):
-        if not (self.seedDiscovery.is_seed(self.ip)):
-            self.seed_ip = self.seedDiscovery.seed_ip()
-            self.connect_with_node(self.seed_ip, self.port)
-            messageType = 'PEERREGISTER'
-            senderConnector = {"ip": self.ip, "port": self.port}
-            data = self.peers
-            message = Message(messageType, senderConnector, data)
-            self.seedDiscovery.handshake_message(message)
-
-    def startSocketCommunication(self, node):
+    def start_socket_communication(self, node):
         self.node = node
         self.start()
         self.peerDiscoveryHandler.start()
-        self.connectToSeed()
 
     """
     def inbound_node_connected(self, connected_node):
@@ -48,6 +36,7 @@ class SocketCommunication(Node):
 
     def node_message(self, connected_node, message):
         message = BlockchainUtils.decode(json.dumps(message))
+        print(message)
         if message.payload['messageType'] == 'PEERREGISTER':
             self.peerDiscovery.handle_message(message)
         """

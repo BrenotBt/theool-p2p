@@ -12,4 +12,4 @@ class Node():
 
     def startP2P(self):
         self.p2p = SocketCommunication(self.ip, self.port)
-        self.p2p.startSocketCommunication(self)
+        self.p2p.start_socket_communication(self)
